@@ -1,0 +1,28 @@
+.arrow_back{
+    position: absolute;
+    color: rgb(183, 147, 103);
+    top: 30px;
+    font-size: 3em;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 5%;
+}
+.create_account_header{
+    position: absolute;
+    top: 10%;
+    text-align: center;
+    color: white;
+    width: 100%;
+    font-size: 4em;
+    font-weight: 400;
+    font-family: "Cinzel", serif;
+}
+.accounts_container{
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    gap: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
