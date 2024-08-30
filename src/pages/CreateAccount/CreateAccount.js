@@ -17,7 +17,7 @@ function CreateAccount(){
                     account={'Booker'}
                     accountDescription={'I am looking to book appointments and find businesses/people that are offering a service'} /> 
             </div>
-            <div id='form_portal'></div>
+            <div id='create_account_portal'></div>
         </>
     );
 }

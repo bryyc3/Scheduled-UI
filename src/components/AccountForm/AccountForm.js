@@ -5,14 +5,23 @@ import './AccountForm.css';
 function AccountForm ({ displayed, accountType, onClose}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const passwordLength = 8;
 
     const checkEmail = (e) => {
+        //check if email already exists 
+        //check if email is in correct format 
         const emailInput = e.target.value;
         setEmail(emailInput);
     };
+    
     const checkPassword = (e) => {
         const passwordInput = e.target.value;
-        setPassword(passwordInput);
+        if (passwordInput.length < passwordLength){
+            alert("password must be at least 8 characters")
+        }
+        else {
+            setPassword(passwordInput);
+        }
     };
     const confirmPassword = (e) => {
         const confirmPasswordInput = e.target.value;
@@ -20,12 +29,30 @@ function AccountForm ({ displayed, accountType, onClose}) {
             alert("Passwords must match");
         }
     };
+    function handleSubmit(e){
+        e.preventDefault();
+        fetch('http://localhost:8000/update-email',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(
+                    {email, 
+                    password,
+                    accountType
+                    }
+                )
+                      
+            }
+         )
+    }
 
     if (!displayed) return null;
     return ReactDom.createPortal(
         <div className='modal_form_container'>
-            <div className='button_form_container'>
-                <button onClick={ onClose } className='material-symbols-outlined close_form'>close</button>
+            <div className='button_form_container' onSubmit={handleSubmit}>
+                <button onClick={onClose} className='material-symbols-outlined close_form'>close</button>
                 <form className='modal_form'>
                     <div className='form_content'>
                         <h1 className='create_header'>Create { accountType } Account</h1>
@@ -64,7 +91,7 @@ function AccountForm ({ displayed, accountType, onClose}) {
                 </form>
             </div>
         </div>,
-        document.getElementById('form_portal')
+        document.getElementById('create_account_portal')
     );
 }
 
