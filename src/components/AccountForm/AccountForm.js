@@ -5,47 +5,62 @@ import './AccountForm.css';
 function AccountForm ({ displayed, accountType, onClose}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const passwordLength = 8;
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState(null);
+    const [confirmPasswordError, setConfirmPasswordError] = useState(null);
 
+    const passwordLength = 8;
+    
     const checkEmail = (e) => {
-        //check if email already exists 
-        //check if email is in correct format 
         const emailInput = e.target.value;
         setEmail(emailInput);
+        setEmailError(null);
     };
     
     const checkPassword = (e) => {
         const passwordInput = e.target.value;
+        console.log(password);
         if (passwordInput.length < passwordLength){
-            alert("password must be at least 8 characters")
+            setPasswordError('Password must be at least 8 characters')
         }
-        else {
+        else{
             setPassword(passwordInput);
+            setPasswordError(null);
         }
     };
-    const confirmPassword = (e) => {
+
+    const comparePasswords = (e) => {
         const confirmPasswordInput = e.target.value;
         if(confirmPasswordInput !== password){
-            alert("Passwords must match");
+            setConfirmPasswordError('Passwords do not match')
         }
+        else{
+            setConfirmPassword(confirmPasswordInput);
+            setConfirmPasswordError(null);
+        };
     };
+
+
     function handleSubmit(e){
         e.preventDefault();
-        fetch('http://localhost:8000/update-email',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify(
-                    {email, 
-                    password,
-                    accountType
-                    }
-                )
-                      
-            }
-         )
+        if(confirmPassword !== password){
+            console.log(password);
+            console.log(confirmPassword);
+        }
+        else{
+            const user = {email, password, accountType};
+            fetch('http://localhost:8000/create-user',
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type' : 'application/json' },
+                    body: JSON.stringify(user)
+                }
+             ).then(res => res.json())
+              .then(data => {
+                (data.created) ? window.location = 'http://localhost:3000/booker/dashboard' : setEmailError('Email is already associated with another user');
+              })
+        }
     }
 
     if (!displayed) return null;
@@ -64,7 +79,13 @@ function AccountForm ({ displayed, accountType, onClose}) {
                             name='email'
                             pattern='[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'
                             onBlur={ checkEmail }
-                            required/><br /><br />
+                            required/>
+                        {emailError &&
+                        <div className='error_container'>
+                            <span className='material-symbols-outlined error_icon'>error</span>
+                            <span className='error_message'>{ emailError }</span>
+                        </div>}
+                        <br />
 
                         <label htmlFor='password'>Password</label><br />
                         <input 
@@ -73,7 +94,13 @@ function AccountForm ({ displayed, accountType, onClose}) {
                             name='password'
                             pattern='.{8,}'
                             onBlur={ checkPassword }
-                            required/><br /><br />
+                            required/>
+                        {passwordError &&
+                        <div className='error_container'>
+                            <span className='material-symbols-outlined error_icon'>error</span>
+                            <span className='error_message'>{ passwordError }</span>
+                        </div>}
+                        <br />
 
                         <label htmlFor='password-confirm'>Confirm Password</label><br />
                         <input 
@@ -81,9 +108,14 @@ function AccountForm ({ displayed, accountType, onClose}) {
                             placeholder='Enter Your Password'
                             name='confirmPassword'
                             pattern='.{8,}'
-                            onBlur={ confirmPassword }
-                            required/><br /><br />
-
+                            onBlur={ comparePasswords }
+                            required/>
+                        {confirmPasswordError &&
+                        <div className='error_container'>
+                            <span className='material-symbols-outlined error_icon'>error</span>
+                            <span className='error_message'>{ confirmPasswordError }</span>
+                        </div>}
+                        <br />
                         <button type='submit' className='submit_account_info'>Create Account</button>
 
                         <hr data-content='or'/>

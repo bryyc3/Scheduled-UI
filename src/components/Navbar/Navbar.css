@@ -1,0 +1,18 @@
+.navbar{
+    display: flex;
+    width: 100vw;
+}
+.nav_items{
+    text-align: center;
+    width: 100vw;
+    margin-top: 70px;
+}
+.search_bar{
+    width: 50vw;
+    border-radius: 50px;
+}
+.profile{
+    right: 0;
+    height: 100px;
+
+}

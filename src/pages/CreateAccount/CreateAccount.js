@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import IntroBackground from '../../components/Background/IntroBackground';
+import Background from '../../components/Background/Background.js';
 import AccountType from '../../components/AccountType/AccountType.js';
 import './CreateAccount.css';
 
 function CreateAccount(){
     return(
         <>
-            <IntroBackground />
+            <Background />
             <Link to='/' className='material-symbols-outlined arrow_back'>arrow_back</Link>
             <h1 className='create_account_header'>CREATE ACCOUNT</h1>
             <div className='accounts_container'>

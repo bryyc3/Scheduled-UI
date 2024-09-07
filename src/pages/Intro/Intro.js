@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import IntroBackground from '../../components/Background/IntroBackground';
+import Background from '../../components/Background/Background';
 import './Intro.css';
 
 function Intro(){
   return (
     <>
-      <IntroBackground />
+      <Background />
       <div className='login_content'>
         <h1 className='scheduled_title'>SCHEDULED</h1>
         <p className='subheader'>Booking appointments made easy</p>
