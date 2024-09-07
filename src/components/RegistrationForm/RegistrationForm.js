@@ -1,11 +1,10 @@
 import  {useState} from 'react';
 import ReactDom from 'react-dom';
-import './AccountForm.css';
+import './RegistrationForm.css';
 
-function AccountForm ({ displayed, accountType, onClose}) {
+function RegistrationForm ({ displayed, accountType, onClose}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState(null);
     const [confirmPasswordError, setConfirmPasswordError] = useState(null);
@@ -20,7 +19,6 @@ function AccountForm ({ displayed, accountType, onClose}) {
     
     const checkPassword = (e) => {
         const passwordInput = e.target.value;
-        console.log(password);
         if (passwordInput.length < passwordLength){
             setPasswordError('Password must be at least 8 characters')
         }
@@ -28,7 +26,7 @@ function AccountForm ({ displayed, accountType, onClose}) {
             setPassword(passwordInput);
             setPasswordError(null);
         }
-    };
+    };//after user enters password, store in variable if it meets requirements
 
     const comparePasswords = (e) => {
         const confirmPasswordInput = e.target.value;
@@ -36,32 +34,27 @@ function AccountForm ({ displayed, accountType, onClose}) {
             setConfirmPasswordError('Passwords do not match')
         }
         else{
-            setConfirmPassword(confirmPasswordInput);
             setConfirmPasswordError(null);
         };
-    };
+    };//check if the confirmed password matches the password previously entered 
 
 
     function handleSubmit(e){
         e.preventDefault();
-        if(confirmPassword !== password){
-            console.log(password);
-            console.log(confirmPassword);
-        }
-        else{
-            const user = {email, password, accountType};
-            fetch('http://localhost:8000/create-user',
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type' : 'application/json' },
-                    body: JSON.stringify(user)
-                }
-             ).then(res => res.json())
-              .then(data => {
-                (data.created) ? window.location = 'http://localhost:3000/booker/dashboard' : setEmailError('Email is already associated with another user');
-              })
-        }
-    }
+        const user = {email, password, accountType};
+        fetch('http://localhost:8000/create-user',
+            {
+                method: 'POST',
+                headers: { 'Content-Type' : 'application/json' },
+                body: JSON.stringify(user)
+            }
+            ).then(res => res.json())
+            .then(data => {
+            (data.created) ? window.location = 'http://localhost:3000/booker/dashboard' : setEmailError('Email is already associated with another user');
+            })
+        
+    }//send user data to server if form fields meet specified requirements
+     //if user email isnt already in the database, redirect to appropriate page
 
     if (!displayed) return null;
     return ReactDom.createPortal(
@@ -127,4 +120,4 @@ function AccountForm ({ displayed, accountType, onClose}) {
     );
 }
 
-export default AccountForm;
+export default RegistrationForm;
