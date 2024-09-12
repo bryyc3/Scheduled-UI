@@ -51,7 +51,7 @@ function RegistrationForm ({ displayed, accountType, onClose}) {
             }
             ).then(res => res.json())
             .then(data => {
-            (data.created) ? window.location = 'http://localhost:3000/booker/dashboard' : setEmailError('Email is already associated with another user');
+            (data.created) ? window.location = `http://localhost:3000/${accountType}/dashboard` : setEmailError('Email is already associated with another user');
             })
         
     }//send user data to server if form fields meet specified requirements
