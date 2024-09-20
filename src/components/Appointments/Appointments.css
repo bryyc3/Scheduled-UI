@@ -1,0 +1,14 @@
+
+.appointment_message{
+    padding: 20px;
+    margin: auto;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 4em;
+    text-align: center;
+}
+
+@media(max-width: 970px){
+    .appointment_message{
+        margin-top: 10%;
+    }
+}

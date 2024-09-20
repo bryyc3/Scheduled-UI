@@ -42,18 +42,24 @@ function RegistrationForm ({ displayed, accountType, onClose}) {
     function handleSubmit(e){
         e.preventDefault();
         const user = {email, password, accountType};
-        fetch('http://localhost:8000/create-user',
-            {
-                method: 'POST',
-                headers: { 'Content-Type' : 'application/json' },
-                body: JSON.stringify(user),
-                credentials: 'include'
-            }
-            ).then(res => res.json())
-            .then(data => {
-            (data.created) ? window.location = `http://localhost:3000/${accountType}/dashboard` : setEmailError('Email is already associated with another user');
-            })
-        
+        const createUser = async () => {
+            const sentUserInfo = await fetch('http://localhost:8000/create-user',
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type' : 'application/json' },
+                    body: JSON.stringify(user),
+                    credentials: 'include'
+                })
+            const response = (await sentUserInfo.json());
+            
+                if(response.created){
+                    window.location = `http://localhost:3000/${response.account_type}/dashboard` 
+                }
+                else{
+                    setEmailError('Email is already associated with another user');
+                }
+        }
+        createUser();
     }//send user data to server if form fields meet specified requirements
      //if user email isnt already in the database, redirect to appropriate page
 

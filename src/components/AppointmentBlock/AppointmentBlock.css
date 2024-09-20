@@ -2,9 +2,10 @@
 .info_container{
     background-color: rgb(159, 217, 157);
     height: 300px;
-    width: 400px;
+    min-width: 25%;
     padding: 20px;
     border-radius: 25px;
+    margin: 20px;
 }
 .appt_heading{
    font-family: "Bebas Neue", sans-serif;
@@ -12,6 +13,15 @@
 }
 .appt_time{
     font-family: "Barlow Condensed", sans-serif ;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 2.5em;
+}
+
+
+
+@media(max-width: 970px){
+    .info_container{
+        width:auto;
+        height: 200px;
+    }
 }

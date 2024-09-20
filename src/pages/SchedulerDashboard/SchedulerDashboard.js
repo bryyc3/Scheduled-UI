@@ -1,17 +1,31 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react";
+import './SchedulerDashboard.css';
+import Appointments from "../../components/Appointments/Appointments.js";
 
 export default function SchedulerDashboard(){
+    const [accountType, setAccountType] = useState('')
     useEffect(() => {
-        fetch("http://localhost:8000/loginStatus",
-          {
-            method: 'GET',
-            credentials: 'include'
-          }
-        ).then((res) => res.json())
-          .then(data => {
-            (data.logged_in && data.account_type === 'scheduler') ? console.log(data.logged_in) : window.location = `http://localhost:3000/`
-          })},[])
+       const getLoginInfo = async () => {
+            const response = await fetch("http://localhost:8000/loginStatus",
+                {
+                    method: 'GET',
+                    credentials: 'include'
+                }
+            )
+            const loginInfo = (await response.json());
+            if(!loginInfo.logged_in || loginInfo.account_type !== 'scheduler'){
+                 window.location = `http://localhost:3000/`
+            }
+            setAccountType(loginInfo.account_type);
+       }
+       getLoginInfo();
+       
+    },[])//Check for user login status
     return(
-        <h1>HELLO SCHEDULER</h1>
+        <>
+             <div className='content_background'>
+               <Appointments dashboard = {accountType} />
+            </div>
+        </>
     )
 }

@@ -10,15 +10,21 @@ function Intro(){
       setDisplayForm(!displayForm);
   }
   useEffect(() => {
-    fetch("http://localhost:8000/loginStatus",
-      {
-        method: 'GET',
-        credentials: 'include'
-      }
-    ).then((res) => res.json())
-      .then(data => {
-        (data.logged_in) ? window.location = `http://localhost:3000/${data.account_type}/dashboard` : console.log(data.logged_in)
-      })},[])
+    const getLoginInfo = async () => {
+         const response = await fetch("http://localhost:8000/loginStatus",
+             {
+                 method: 'GET',
+                 credentials: 'include'
+             }
+         )
+         const loginInfo = (await response.json());
+         console.log(loginInfo);
+         if(loginInfo.logged_in){
+              window.location = `http://localhost:3000/${loginInfo.account_type}/dashboard`
+         }
+    }
+    getLoginInfo();
+  }, [])//Check for user login status 
   return (
     <>
       <Background />
@@ -30,8 +36,8 @@ function Intro(){
         <button onClick={ toggleForm } className='login_prompt'>Login</button>
         <div id='create_account_portal'>
           <LoginForm 
-                    displayed={displayForm} 
-                    onClose={ toggleForm }
+              displayed={displayForm} 
+              onClose={ toggleForm }
                 />
         </div>
         

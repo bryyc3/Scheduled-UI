@@ -6,8 +6,6 @@ function LoginForm ({ displayed, onClose}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(null);
-
-    console.log(loginError)
     
     const emailEntered = (e) => {
         const emailInput = e.target.value;
@@ -24,18 +22,24 @@ function LoginForm ({ displayed, onClose}) {
     function handleSubmit(e){
         e.preventDefault();
         const user = {email, password};
-        fetch('http://localhost:8000/login',
-            {
-                method: 'POST',
-                headers: { 'Content-Type' : 'application/json' },
-                body: JSON.stringify(user),
-                credentials: 'include'
+        const login = async () => {
+            const loginUser = await fetch('http://localhost:8000/login',
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type' : 'application/json' },
+                    body: JSON.stringify(user),
+                    credentials: 'include'
+                })
+            const response = (await loginUser.json());
+            if(response.logged_in){
+                window.location = `http://localhost:3000/${response.account_type}/dashboard`;
             }
-            ).then(res => res.json())
-            .then(data => {
-            (data.login) ? window.location = 'http://localhost:3000/booker/dashboard' : setLoginError('Email or Password is incorrect');
-            })
-        
+            else{
+                setLoginError('Email or Password is incorrect');
+            }
+
+        }
+        login();
     }//send user data to server if form fields meet specified requirements
      //if email and password are correct sign user in
 
