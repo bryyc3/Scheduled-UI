@@ -24,7 +24,7 @@ export default function BookerDashboard(){
     },[])//Check for user login status
     return(
         <>
-            <Navbar />
+            <Navbar account = {accountType}/>
             <div className='content_background'>
                <Appointments dashboard = {accountType} />
             </div>

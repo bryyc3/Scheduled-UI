@@ -2,7 +2,6 @@ import './AppointmentBlock.css';
 
 export default function AppointmentBlock({name, contact, service, date, time, business}){
     if(business == null){
-        console.log('hello')
         return(
             <>
                 <div className='info_container'>

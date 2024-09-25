@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import './SchedulerDashboard.css';
+import Navbar from "../../components/Navbar/Navbar.js";
 import Appointments from "../../components/Appointments/Appointments.js";
+import BusinessDashboard from "../../components/BusinessDashboard/BusinessDashboard.js";
 
 export default function SchedulerDashboard(){
     const [accountType, setAccountType] = useState('')
@@ -23,8 +25,12 @@ export default function SchedulerDashboard(){
     },[])//Check for user login status
     return(
         <>
-             <div className='content_background'>
+             <Navbar account = {accountType}/>
+             <div className='content_background appointments'>
                <Appointments dashboard = {accountType} />
+            </div>
+            <div className='content_background'>
+               <BusinessDashboard />
             </div>
         </>
     )

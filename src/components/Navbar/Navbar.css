@@ -1,6 +1,7 @@
 .navbar{
     display: flex;
     width: 100vw;
+    justify-content: flex-end;
 }
 .nav_items{
     text-align: center;
@@ -12,7 +13,7 @@
     border-radius: 50px;
 }
 .profile{
-    right: 0;
+    margin-right: 0;
     height: 100px;
 
 }

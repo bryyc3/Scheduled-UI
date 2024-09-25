@@ -21,10 +21,20 @@
     
 }
 
+
 @media(max-width: 970px){
-    .content_background{
+    .appointments{
         display: block;
         overflow-y: auto;
         max-height: 500px;
     }
+    .service_container{
+        display: block;
+    }
+    .input_desc{
+        margin: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
 }

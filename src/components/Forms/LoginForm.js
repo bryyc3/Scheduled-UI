@@ -1,8 +1,8 @@
 import  {useState} from 'react';
 import ReactDom from 'react-dom';
-import './LoginForm.css';
+import './Form.css';
 
-function LoginForm ({ displayed, onClose}) {
+ export default function LoginForm ({ displayed, onClose}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(null);
@@ -46,9 +46,9 @@ function LoginForm ({ displayed, onClose}) {
     if (!displayed) return null;
     return ReactDom.createPortal(
         <div className='modal_form_container'>
-            <div className='button_form_container' onSubmit={handleSubmit}>
+            <div className='button_form_container'>
                 <button onClick={onClose} className='material-symbols-outlined close_form'>close</button>
-                <form className='modal_form'>
+                <form className='modal_form' onSubmit={handleSubmit}>
                     <div className='form_content'>
                         <h1 className='create_header'>Login</h1>
                         <hr />
@@ -57,6 +57,7 @@ function LoginForm ({ displayed, onClose}) {
                             type='email'
                             placeholder='Enter Your Email'
                             name='email'
+                            className='form_input'
                             pattern='[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'
                             onBlur={ emailEntered }
                             required/>
@@ -67,6 +68,7 @@ function LoginForm ({ displayed, onClose}) {
                             type='password'
                             placeholder='Enter Your Password'
                             name='password'
+                            className='form_input'
                             onBlur={ passwordEntered }
                             required/>
                         {loginError &&
@@ -76,15 +78,13 @@ function LoginForm ({ displayed, onClose}) {
                         </div>}
                         <br />
 
-                        <button type='submit' className='submit_account_info'>Login</button>
+                        <button type='submit' className='submit_info'>Login</button>
 
                         <hr data-content='or'/>
                     </div>
                 </form>
             </div>
         </div>,
-        document.getElementById('create_account_portal')
+        document.getElementById('login_portal')
     );
 }
-
-export default LoginForm;

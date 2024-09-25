@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Background from '../../components/Background/Background';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import LoginForm from '../../components/Forms/LoginForm';
 import './Intro.css';
 
-function Intro(){
+export default function Intro(){
   const [displayForm, setDisplayForm] = useState(false);
   function toggleForm() {
       setDisplayForm(!displayForm);
@@ -18,7 +18,6 @@ function Intro(){
              }
          )
          const loginInfo = (await response.json());
-         console.log(loginInfo);
          if(loginInfo.logged_in){
               window.location = `http://localhost:3000/${loginInfo.account_type}/dashboard`
          }
@@ -34,7 +33,7 @@ function Intro(){
         <Link to="/create-account" className='create_account'>Create Account</Link>
         <h3 className='existing_account'>Have an account?</h3>
         <button onClick={ toggleForm } className='login_prompt'>Login</button>
-        <div id='create_account_portal'>
+        <div id='login_portal'>
           <LoginForm 
               displayed={displayForm} 
               onClose={ toggleForm }
@@ -46,5 +45,3 @@ function Intro(){
     </>  
   );
 }
-
-export default Intro;

@@ -1,8 +1,8 @@
 import  {useState} from 'react';
 import ReactDom from 'react-dom';
-import './RegistrationForm.css';
+import './Form.css';
 
-function RegistrationForm ({ displayed, accountType, onClose}) {
+export default function RegistrationForm ({ displayed, accountType, onClose}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -66,9 +66,9 @@ function RegistrationForm ({ displayed, accountType, onClose}) {
     if (!displayed) return null;
     return ReactDom.createPortal(
         <div className='modal_form_container'>
-            <div className='button_form_container' onSubmit={handleSubmit}>
+            <div className='button_form_container' >
                 <button onClick={onClose} className='material-symbols-outlined close_form'>close</button>
-                <form className='modal_form'>
+                <form className='modal_form' onSubmit={handleSubmit}>
                     <div className='form_content'>
                         <h1 className='create_header'>Create { accountType } Account</h1>
                         <hr />
@@ -77,6 +77,7 @@ function RegistrationForm ({ displayed, accountType, onClose}) {
                             type='email'
                             placeholder='Enter Your Email'
                             name='email'
+                            className='form_input'
                             pattern='[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'
                             onBlur={ checkEmail }
                             required/>
@@ -92,6 +93,7 @@ function RegistrationForm ({ displayed, accountType, onClose}) {
                             type='password'
                             placeholder='Enter Your Password'
                             name='password'
+                            className='form_input'
                             pattern='.{8,}'
                             onBlur={ checkPassword }
                             required/>
@@ -107,6 +109,7 @@ function RegistrationForm ({ displayed, accountType, onClose}) {
                             type='password'
                             placeholder='Enter Your Password'
                             name='confirmPassword'
+                            className='form_input'
                             pattern='.{8,}'
                             onBlur={ comparePasswords }
                             required/>
@@ -116,7 +119,7 @@ function RegistrationForm ({ displayed, accountType, onClose}) {
                             <span className='error_message'>{ confirmPasswordError }</span>
                         </div>}
                         <br />
-                        <button type='submit' className='submit_account_info'>Create Account</button>
+                        <button type='submit' className='submit_info'>Create Account</button>
 
                         <hr data-content='or'/>
                     </div>
@@ -126,5 +129,3 @@ function RegistrationForm ({ displayed, accountType, onClose}) {
         document.getElementById('create_account_portal')
     );
 }
-
-export default RegistrationForm;

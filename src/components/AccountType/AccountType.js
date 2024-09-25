@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './AccountType.css';
-import RegistrationForm from '../RegistrationForm/RegistrationForm';
+import RegistrationForm from '../Forms/RegistrationForm';
 
-function AccountType ({ account, header, accountDescription}){
+export default function AccountType ({ account, header, accountDescription}){
     const [displayForm, setDisplayForm] = useState(false);
     function toggleForm() {
         setDisplayForm(!displayForm);
@@ -22,5 +22,3 @@ function AccountType ({ account, header, accountDescription}){
         </>
     );
 }
-
-export default AccountType;

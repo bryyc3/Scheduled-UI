@@ -6,7 +6,7 @@
     height: 100%;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-
+    overflow-y: auto;
 }
 .button_form_container{
     background: white;
@@ -44,7 +44,7 @@ label{
     font-size: 1.2em;
     color: rgb(81, 80, 80);
 }
-input{
+input, textarea{
     width: 100%;
     padding: 15px;
     margin: 5px 0 10px 0;
@@ -53,7 +53,28 @@ input{
     background: #f1f1f1;
 }
 
-.submit_account_info{
+
+.service_container{
+    display: flex;
+    gap: 5%;
+}
+.service_input{
+    width: fit-content;
+    display: block;
+}
+.input_container{
+    display: flex;
+}
+.input_desc{
+    font-family: "Quattrocento", serif;
+    margin: auto;
+}
+.price_input{
+    width: 70px;
+    height: 40px;
+}
+
+.submit_info{
     margin: 8px 0;
     border: none;
     cursor: pointer;
@@ -64,8 +85,31 @@ input{
     color: white;
     font-family: "Quattrocento", serif;
     font-size: 1.3em;
-  }
-  
+}
+
+.add_service_container{
+    display: flex;
+}
+.add_service_button{
+    border: none;
+    background-color: rgb(81, 80, 80);
+    color: #f1f1f1;
+    font-size: 2em;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.add_service{
+    text-align: center;
+    font-size: 1.3em;
+    font-family: "Quattrocento", serif;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+}
+.delete{
+    background: none;
+    border: none;
+}
   .error_container{
     display: flex;
     color: rgb(222, 3, 3);
@@ -74,3 +118,15 @@ input{
     font-size: 1.2em;
 
   }
+
+  @media(max-width: 970px){
+    .service_container{
+        display: block;
+    }
+    .input_desc{
+        margin: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+}
