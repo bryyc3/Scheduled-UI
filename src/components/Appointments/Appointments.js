@@ -4,17 +4,19 @@ import './Appointments.css';
 
 export default function Appointments({dashboard}){
     const [appointments, setAppointments] = useState([]);
+
+    const getAppointments = async () => {
+        const response = await fetch("http://localhost:8000/appointments",
+           {
+           method: 'GET',
+           credentials: 'include'
+           }
+       )
+       const userAppointments = (await response.json());
+       setAppointments(userAppointments);
+      }
+      
     useEffect(() => {
-        const getAppointments = async () => {
-          const response = await fetch("http://localhost:8000/appointments",
-             {
-             method: 'GET',
-             credentials: 'include'
-             }
-         )
-         const userAppointments = (await response.json());
-         setAppointments(userAppointments);
-        }
         getAppointments();
      },[])
     if(appointments.length < 1){

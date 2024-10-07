@@ -1,0 +1,22 @@
+
+
+.service{
+    display: flex;
+}
+.service_name_description{
+    width: 300px;
+    margin-right: auto;
+}
+.service_name{
+    font-family: "League Gothic", sans-serif;
+}
+.service_description{
+    font-family: "Gowun Batang", serif;
+}
+.service_price{
+font-family: "Gowun Batang", serif;
+   margin-top: auto;
+   margin-bottom: auto;
+   margin-left: auto;
+   text-align: center;
+}

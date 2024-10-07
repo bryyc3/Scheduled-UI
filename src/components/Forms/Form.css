@@ -13,6 +13,7 @@
     margin: 5% auto 15% auto;
     border-radius: 5%;
     width: 60%;
+    
 }
 
 .close_form{
@@ -44,7 +45,7 @@ label{
     font-size: 1.2em;
     color: rgb(81, 80, 80);
 }
-input, textarea{
+.form_input, textarea{
     width: 100%;
     padding: 15px;
     margin: 5px 0 10px 0;
@@ -110,23 +111,73 @@ input, textarea{
     background: none;
     border: none;
 }
-  .error_container{
+.error_container{
     display: flex;
     color: rgb(222, 3, 3);
-  }
-  .error_icon{
+}
+.error_icon{
     font-size: 1.2em;
 
-  }
+}
 
-  @media(max-width: 970px){
-    .service_container{
+.availability_message{
+    text-align: center;
+    font-family: "Quattrocento", serif;
+    margin-bottom: 20px;
+}
+.day_cont{
+    display: flex;
+}
+.day_name{
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: flex-start;
+    font-family: "League Gothic", sans-serif;
+    font-size: 2.5em;
+    font-weight: 300;
+}
+.time_cont{
+    display: flex;
+    margin-left: auto;
+}
+.time_marker_cont{
+    display: flex;
+    margin-right: 30px;
+}
+.time_marker{
+    margin: auto;
+    font-family: "Quattrocento", serif;
+}
+.time_input{
+    width: 130px;
+    border-radius: 25px;
+}
+.unavailable_cont{
+    display: flex;
+    gap: 10px;
+}
+.unavailable_text{
+    margin: auto;
+    font-family: "Quattrocento", serif;
+}
+
+@media(max-width: 970px){
+.service_container{
         display: block;
-    }
-    .input_desc{
+}
+.input_desc{
         margin: 0px;
         margin-top: auto;
         margin-bottom: auto;
-    }
-
+}
+.day_cont{
+        display: block;
+        margin-bottom: 10px;
+}
+.time_marker_cont{
+    display: block;
+}
+.unavailable_text{
+    margin: 0;
+}
 }

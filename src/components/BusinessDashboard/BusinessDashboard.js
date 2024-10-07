@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import BusinessSetup from "../Forms/BusinessSetup";
+import BusinessServices from "../BusinessServices/BusinessServices";
+import BusinessAvailability from "../BusinessAvailability/BusinessAvailability";
+
 import './BusinessDashboard.css';
 
 export default function BusinessDashboard(){
@@ -8,21 +11,20 @@ export default function BusinessDashboard(){
     function toggleForm() {
         setDisplayForm(!displayForm);
     }
+    const getBusinessData = async () => {
+        const businessResponse = await fetch("http://localhost:8000/business-information",
+            {
+                method: 'GET',
+                credentials: 'include'
+            }
+        )
+        const businessInfo = (await businessResponse.json());
+        setBusinessData(businessInfo);
+   }
     useEffect(() =>{
-        const getBusinessData = async () => {
-            const response = await fetch("http://localhost:8000/business-information",
-                {
-                    method: 'GET',
-                    credentials: 'include'
-                }
-            )
-            const businessInfo = (await response.json());
-            console.log(businessInfo)
-            setBusinessData(businessInfo);
-       }
        getBusinessData();
     },[])
-    if(businessData.length == 0){
+    if(businessData.length === 0){
         return(
             <>
                 <button className='setup_button' onClick={ toggleForm }>Set Up Your Business</button>
@@ -37,14 +39,17 @@ export default function BusinessDashboard(){
     }
     return(
         <>
-            <h1 className='profile_prev_header'>Profile Preview</h1>
-            <div className="profile_prev">
-                <h1 className='business_name'></h1>
-                <h2 className='business_location'></h2>
-                <p className='business_desc'></p>
-                <div className='services'>
-
+            <div className="business_cont">
+                <div className="business_info">
+                    <h1 className='business_name'>{businessData[0].business_name}</h1>
+                    <p className='business_location'>{businessData[0].location}</p>
+                    <p className='business_desc'>{businessData[0].description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio veniam laudantium odio, voluptatibus beatae ipsa commodi, cum blanditiis ut excepturi dolores modi possimus? Soluta aliquam magni in eligendi nesciunt maiores.</p>
                 </div>
+                <hr />
+                <h2 className='business_header'>Services Offered</h2>
+                <BusinessServices />
+                <h2 className='business_header'>Availability</h2>
+                <BusinessAvailability />
             </div>
         </>
     )

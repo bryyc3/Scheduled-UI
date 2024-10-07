@@ -10,3 +10,30 @@
     cursor: pointer;
     text-decoration: none;
 }
+.business_cont{
+    width: 100%;
+    padding: 20px;
+}
+.business_info{
+    text-align: center;
+}
+.business_name{
+    font-family: "Bebas Neue", sans-serif;;
+    font-size: 4em;
+}
+.business_location{
+    margin-top: -15px;
+    margin-bottom: 20px;
+    font-family: "Gowun Batang", serif;
+    font-size: 2em;
+}
+.business_desc{
+    max-width: 900px;
+    margin: auto;
+    font-size: 1.5em;
+}
+.business_header{
+    font-family: "Bebas Neue", sans-serif;;
+    font-size: 2em;
+    text-align: center;
+}

@@ -3,10 +3,11 @@ import ReactDom from 'react-dom';
 import './Form.css';
 
 export default function BusinessSetup({onClose, displayed}){
-    const [services, setServices] = useState([]);
     const [businessName, setBusinessName] = useState('');
     const [address, setAddress] = useState('');
     const [businessDescription, setBusinessDescription] = useState('');
+    const [services, setServices] = useState([]);
+    
 
 
     function storeBusinessName(e){
@@ -20,7 +21,8 @@ export default function BusinessSetup({onClose, displayed}){
     function storeDescription(e){
         const description = e.target.value;
         setBusinessDescription(description);
-    }
+    }//set business details
+
     function addService(e){
         e.preventDefault()
         let newService = {name: '', price: '', description: ''}
@@ -49,11 +51,12 @@ export default function BusinessSetup({onClose, displayed}){
         const serviceArray = [...services];
         serviceArray[index].description = serviceDescription;
         setServices(serviceArray);
-    }
+    }//set services 
+
+
 
 
     function handleSubmit(){
-        //e.preventDefault();
         const business = {businessName, address, businessDescription};
         const serviceArray = {services};
         const createBusiness = async () => {
@@ -114,6 +117,7 @@ export default function BusinessSetup({onClose, displayed}){
                         <textarea 
                             type='text'
                             placeholder='Describe your business'
+                            className='text_area'
                             name='business_description'
                             onBlur={ storeDescription }
                             required/>
@@ -143,6 +147,7 @@ export default function BusinessSetup({onClose, displayed}){
                                                 name='price' id='' 
                                                 className='price_input' 
                                                 min={0} 
+                                                max={9999.99}
                                                 value={service.price}                            
                                                 onChange={(e) => setPrice(e, index)}
                                             />
