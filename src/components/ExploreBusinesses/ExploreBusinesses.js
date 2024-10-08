@@ -16,6 +16,7 @@ export default function ExploreBusinesses(){
         )
         const businessesArr= (await businessesResponse.json());
         setBusinesses(businessesArr);
+        console.log(businessesArr)
    }
    function storeBusinessData(businessInfo){
         setBusinessObj(businessInfo);
@@ -35,7 +36,7 @@ export default function ExploreBusinesses(){
                 <div className='businesses_cont'>
                     {businesses.map((business, index) =>{
                         return(
-                            <div className='business_cont'>
+                            <div className='business_display_cont'>
                                 <h1>{business.business_name}</h1>
                                 <h2>{business.location}</h2>
                                 <h2>{business.description}</h2>

@@ -9,8 +9,12 @@
     font-family: "Bebas Neue", sans-serif;
     font-size: 3em;
 }
+
 .businesses_cont{
-    background-color: rgb(246, 219, 164);
+    display: flex;
+}
+.business_display_cont{
+    background-color: rgb(159, 217, 157);
     height: 300px;
     width: 500px;
     padding: 20px;
@@ -33,7 +37,10 @@
 
 @media(max-width: 970px){
     .businesses_cont{
+        display: block;
+    }
+    .business_display_cont{
         width:auto;
-        height: 200px;
+        height: fit-content;
     }
 }

@@ -31,10 +31,10 @@ export default function Dashboard(){
             <>
                 <Navbar account = {accountType}/>
                 <div className='content_background'>
-                <Appointments dashboard = {accountType} />
+                    <Appointments dashboard = {accountType} />
                 </div>
                 <div className='content_background'>
-                <ExploreBusinesses />
+                    <ExploreBusinesses />
                 </div>
             </>
             
@@ -46,10 +46,10 @@ export default function Dashboard(){
             <>
                 <Navbar account = {accountType}/>
                 <div className='content_background appointments'>
-                <Appointments dashboard = {accountType} />
+                    <Appointments dashboard = {accountType} />
                 </div>
                 <div className='content_background'>
-                <BusinessDashboard />
+                    <BusinessDashboard account={accountType} name={null} />
                 </div>
             </>
         );

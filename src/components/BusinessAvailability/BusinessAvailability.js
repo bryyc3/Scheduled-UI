@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import SetAvailability from "../Forms/SetAvailability";
 import './BusinessAvailability.css'
 
-export default function BusinessAvailability(){
+export default function BusinessAvailability({type}){
     const [timesAvailable, setTimesAvailable] = useState([]);
     const [displayForm, setDisplayForm] = useState(false);
     function toggleForm() {
@@ -53,6 +53,8 @@ export default function BusinessAvailability(){
        getAvailability();
     },[])
     
+    if(type === 'booker') return null;//dont list availability for a booker displaying scheduler's business
+
     if(timesAvailable.length === 0){
         return(
             <>
@@ -72,30 +74,35 @@ export default function BusinessAvailability(){
     }
 
     return(
-        timesAvailable.map((day, index) =>{
-            if(day.unavailable == true){
-                return(
-                    <div className='day_availability'>
-                        <h1 className='day'>{day.day}</h1>
-                        <div className="availability_display">
-                            <div className='availability_time'>Unavailable</div>
-                        </div>
-                    </div>
-                )
+        <>
+            <h2 className='business_header'>Availability</h2>
+            {timesAvailable.map((day, index) =>{
+                    if(day.unavailable == true){
+                        return(
+                            <div className='day_availability'>
+                                <h1 className='day'>{day.day}</h1>
+                                <div className="availability_display">
+                                    <div className='availability_time'>Unavailable</div>
+                                </div>
+                            </div>
+                        )
+                    }
+                    return(
+                        <>
+                            <div className='day_availability'>
+                                <h1 className='day'>{day.day}</h1>
+                                <div className='availability_display'>
+                                    <div className='availability_time'>{day.start_time} - {day.end_time}</div>
+                                </div>
+                            </div>
+                            <hr />
+                        </>
+                    
+                    )
+                })
             }
-            return(
-                <>
-                    <div className='day_availability'>
-                        <h1 className='day'>{day.day}</h1>
-                        <div className='availability_display'>
-                            <div className='availability_time'>{day.start_time} - {day.end_time}</div>
-                        </div>
-                    </div>
-                    <hr />
-                </>
-               
-            )
-        })
+        </>
+        
     )
     
 }
