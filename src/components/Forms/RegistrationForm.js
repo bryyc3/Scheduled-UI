@@ -53,7 +53,7 @@ export default function RegistrationForm ({ displayed, accountType, onClose}) {
             const response = (await sentUserInfo.json());
             
                 if(response.created){
-                    window.location = `http://localhost:3000/${response.account_type}/dashboard` 
+                    window.location = `http://localhost:3000/dashboard` 
                 }
                 else{
                     setEmailError('Email is already associated with another user');

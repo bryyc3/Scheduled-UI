@@ -5,17 +5,23 @@ import AccountType from '../../components/AccountType/AccountType.js';
 import './CreateAccount.css';
 
 function CreateAccount(){
-    useEffect(() => {
-        fetch("http://localhost:8000/loginStatus",
-          {
+  const getLoginInfo = async () => {
+    const response = await fetch("http://localhost:8000/loginStatus",
+        {
             method: 'GET',
             credentials: 'include'
-          }
-        ).then((res) => res.json())
-          .then(data => {
-            console.log(data);
-            (data.logged_in) ? window.location = `http://localhost:3000/${data.account_type}/dashboard` : console.log(data.logged_in)
-          })},[])
+        }
+    )
+    const loginInfo = (await response.json());
+    if(loginInfo.logged_in){
+         window.location = `http://localhost:3000/dashboard`
+    }
+  }//Check for user login status 
+
+  useEffect(() => {
+     getLoginInfo();
+  },[]);
+
     return(
         <>
             <Background />

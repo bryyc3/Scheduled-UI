@@ -1,5 +1,8 @@
 
-
+.services_cont{
+    width: fit-content;
+    margin: auto;
+}
 .service{
     display: flex;
 }

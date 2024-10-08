@@ -6,24 +6,28 @@ import './Intro.css';
 
 export default function Intro(){
   const [displayForm, setDisplayForm] = useState(false);
+
   function toggleForm() {
       setDisplayForm(!displayForm);
   }
-  useEffect(() => {
-    const getLoginInfo = async () => {
-         const response = await fetch("http://localhost:8000/loginStatus",
-             {
-                 method: 'GET',
-                 credentials: 'include'
-             }
-         )
-         const loginInfo = (await response.json());
-         if(loginInfo.logged_in){
-              window.location = `http://localhost:3000/${loginInfo.account_type}/dashboard`
-         }
+
+  const getLoginInfo = async () => {
+    const response = await fetch("http://localhost:8000/loginStatus",
+        {
+            method: 'GET',
+            credentials: 'include'
+        }
+    )
+    const loginInfo = (await response.json());
+    if(loginInfo.logged_in){
+         window.location = `http://localhost:3000/dashboard`
     }
+  }//Check for user login status 
+
+  useEffect(() => {
     getLoginInfo();
-  }, [])//Check for user login status 
+  },[])
+
   return (
     <>
       <Background />
@@ -39,8 +43,6 @@ export default function Intro(){
               onClose={ toggleForm }
                 />
         </div>
-        
-        
       </div>
     </>  
   );

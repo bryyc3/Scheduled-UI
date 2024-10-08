@@ -32,7 +32,7 @@ import './Form.css';
                 })
             const response = (await loginUser.json());
             if(response.logged_in){
-                window.location = `http://localhost:3000/${response.account_type}/dashboard`;
+                window.location = `http://localhost:3000/dashboard`;
             }
             else{
                 setLoginError('Email or Password is incorrect');

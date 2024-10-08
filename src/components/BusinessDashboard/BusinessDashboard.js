@@ -21,6 +21,7 @@ export default function BusinessDashboard(){
         const businessInfo = (await businessResponse.json());
         setBusinessData(businessInfo);
    }
+   
     useEffect(() =>{
        getBusinessData();
     },[])

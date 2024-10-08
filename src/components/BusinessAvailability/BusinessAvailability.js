@@ -43,7 +43,7 @@ export default function BusinessAvailability(){
             } else {
                 day.end_time = endHour + ':' + endMins + 'am';
             }//convert military time to standard
-            
+
             setTimesAvailable(availability);
         })
    }
@@ -55,17 +55,22 @@ export default function BusinessAvailability(){
     
     if(timesAvailable.length === 0){
         return(
-            <div className="availability_cont">
-                 <button className='set_availability_button' onClick={ toggleForm }>Set Your Availability</button>
-                 <div id='set_availability_portal'>
-                    <SetAvailability
-                        displayed={displayForm}
-                        onClose={toggleForm}
-                    />
-                 </div>
-            </div>  
+            <>
+                <div className="availability_cont">
+                    <button className='open_form_button' onClick={ toggleForm }>Set Your Availability</button>
+                    <div id='set_availability_portal'>
+                        <SetAvailability
+                            displayed={displayForm}
+                            onClose={toggleForm}
+                        />
+                    </div>
+                </div>  
+                <hr />
+            </>
+            
         )
     }
+
     return(
         timesAvailable.map((day, index) =>{
             if(day.unavailable == true){

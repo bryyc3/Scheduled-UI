@@ -1,0 +1,26 @@
+.modal_business_cont{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow-y: auto;
+}
+
+.business_button_cont{
+    background: white;
+    margin: 5% auto 15% auto;
+    border-radius: 5%;
+    width: 60%;
+}
+
+.exit_business{
+    color: rgb(81, 80, 80);
+    padding: 2%;
+    font-size: 2em;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
