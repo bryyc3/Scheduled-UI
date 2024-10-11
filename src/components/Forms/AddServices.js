@@ -7,7 +7,7 @@ export default function AddServices({displayed, onClose}){
 
     function addService(e){
         e.preventDefault()
-        let newService = {name: '', price: '', description: ''}
+        let newService = {name: '', price: '', description: '', time: ''}
         setServices([...services, newService])
     }
     function deleteService(e, index){
@@ -34,6 +34,12 @@ export default function AddServices({displayed, onClose}){
         serviceArray[index].description = serviceDescription;
         setServices(serviceArray);
     }//set services or delete them
+    function setServiceTime(e,index){
+        const serviceTime = e.target.value;
+        const serviceArray = [...services];
+        serviceArray[index].time = serviceTime;
+        setServices(serviceArray);
+    }
 
     function handleSubmit(){
         const serviceArray = {services};
@@ -78,7 +84,7 @@ export default function AddServices({displayed, onClose}){
                                                 <p className='input_desc'>$</p>
                                                 <input 
                                                     type='number' 
-                                                    name='price' id='' 
+                                                    name='price'
                                                     className='price_input' 
                                                     min={0} 
                                                     max={9999.99}
@@ -95,6 +101,21 @@ export default function AddServices({displayed, onClose}){
                                                 value={service.description}
                                                 onChange={(e) => setServiceDescription(e, index)}
                                             />
+                                        </div>
+                                        <div className="service_creation">
+                                            <label htmlFor='price'>Length of Service</label>
+                                            <div className='input_container'>
+                                                <input 
+                                                    type='number' 
+                                                    name='time'
+                                                    className='length_of_service' 
+                                                    min={0} 
+                                                    max={9999.99}
+                                                    value={service.time}                            
+                                                    onChange={(e) => setServiceTime(e, index)}
+                                                />
+                                                <p className='input_desc'>mins</p>
+                                            </div>
                                         </div>
                                         <button  onClick={(e) => deleteService(e, index)} className='material-symbols-outlined delete' value={index}>delete</button>
                                     </div>

@@ -16,7 +16,6 @@ export default function ExploreBusinesses(){
         )
         const businessesArr= (await businessesResponse.json());
         setBusinesses(businessesArr);
-        console.log(businessesArr)
    }
    function storeBusinessData(businessInfo){
         setBusinessObj(businessInfo);

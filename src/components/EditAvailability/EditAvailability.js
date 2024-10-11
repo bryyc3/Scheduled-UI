@@ -1,9 +1,9 @@
 
 import { useState, useEffect } from "react";
 import SetAvailability from "../Forms/SetAvailability";
-import './BusinessAvailability.css'
+import './EditAvailability.css'
 
-export default function BusinessAvailability({type}){
+export default function EditAvailability(){
     const [timesAvailable, setTimesAvailable] = useState([]);
     const [displayForm, setDisplayForm] = useState(false);
     function toggleForm() {
@@ -52,12 +52,11 @@ export default function BusinessAvailability({type}){
     useEffect(() => {
        getAvailability();
     },[])
-    
-    if(type === 'booker') return null;//dont list availability for a booker displaying scheduler's business
 
     if(timesAvailable.length === 0){
         return(
             <>
+                <h2 className='business_header'>Availability</h2>
                 <div className="availability_cont">
                     <button className='open_form_button' onClick={ toggleForm }>Set Your Availability</button>
                     <div id='set_availability_portal'>
@@ -79,12 +78,16 @@ export default function BusinessAvailability({type}){
             {timesAvailable.map((day, index) =>{
                     if(day.unavailable == true){
                         return(
-                            <div className='day_availability'>
-                                <h1 className='day'>{day.day}</h1>
-                                <div className="availability_display">
-                                    <div className='availability_time'>Unavailable</div>
+                            <>
+                                <div className='day_availability'>
+                                    <h1 className='day'>{day.day}</h1>
+                                    <div className="availability_display">
+                                        <div className='availability_time'>Unavailable</div>
+                                    </div>
                                 </div>
-                            </div>
+                                <hr />
+                            </>
+                            
                         )
                     }
                     return(

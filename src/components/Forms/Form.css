@@ -74,7 +74,7 @@ label{
     font-family: "Quattrocento", serif;
     margin: auto;
 }
-.price_input{
+.price_input, .length_of_service{
     width: 70px;
     height: 40px;
     display: block;

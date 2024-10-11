@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import BusinessSetup from "../Forms/BusinessSetup";
-import BusinessServices from "../BusinessServices/BusinessServices";
-import BusinessAvailability from "../BusinessAvailability/BusinessAvailability";
+import EditServices from "../EditServices/EditServices";
+import BookServices from "../BookServices/BookServices";
+import EditAvailability from "../EditAvailability/EditAvailability";
 
 import './BusinessDashboard.css';
 
@@ -20,7 +21,7 @@ export default function BusinessDashboard({account, name}){
         )
         const [businessInfo] = (await businessResponse.json());
         setBusinessData(businessInfo);
-   }
+   }//scheduler specific fetch for business info
 
    const getBookerBusinessData = async () =>{
         const businessResponse = await fetch("http://localhost:8000/business-information",
@@ -33,7 +34,7 @@ export default function BusinessDashboard({account, name}){
         )
         const [businessInfo] = (await businessResponse.json());
         setBusinessData(businessInfo);
-   }
+   }//booker specific fetch for a scheduler's business info
 
     useEffect(() =>{
         if(account === 'booker'){
@@ -43,32 +44,50 @@ export default function BusinessDashboard({account, name}){
             getSchedulerBusinessData();
         }
     },[])
-    if(businessData.length === 0 && account === 'scheduler'){
+    if(account === 'scheduler'){
+        if(businessData.length === 0 && account === 'scheduler'){
+            return(
+                <>
+                    <button className='setup_button' onClick={ toggleForm }>Set Up Your Business</button>
+                    <div id='business_setup_portal'>
+                        <BusinessSetup 
+                            displayed={displayForm}
+                            onClose={toggleForm}
+                        />
+                    </div>
+                </>
+            )
+        }
         return(
             <>
-                <button className='setup_button' onClick={ toggleForm }>Set Up Your Business</button>
-                <div id='business_setup_portal'>
-                    <BusinessSetup 
-                        displayed={displayForm}
-                        onClose={toggleForm}
-                    />
+                <div className="business_cont">
+                    <div className="business_info">
+                        <h1 className='business_name'>{businessData.business_name}</h1>
+                        <p className='business_location'>{businessData.location}</p>
+                        <p className='business_desc'>{businessData.description}</p>
+                    </div>
+                    <hr />
+                    <EditServices />
+                    <EditAvailability />
+                    <h1>Time Slot Divisions</h1>
+                    <h2>Show a time slot for every {businessData.divide_slots} mins</h2>
                 </div>
             </>
         )
     }
-    return(
-        <>
-            <div className="business_cont">
-                <div className="business_info">
-                    <h1 className='business_name'>{businessData.business_name}</h1>
-                    <p className='business_location'>{businessData.location}</p>
-                    <p className='business_desc'>{businessData.description}</p>
+    if(account === 'booker'){
+        return(
+            <>
+                <div className="business_cont">
+                    <div className="business_info">
+                        <h1 className='business_name'>{businessData.business_name}</h1>
+                        <p className='business_location'>{businessData.location}</p>
+                        <p className='business_desc'>{businessData.description}</p>
+                    </div>
+                    <hr />
+                    <BookServices scheduler={name} />
                 </div>
-                <hr />
-                
-                <BusinessServices owner={businessData.owner} type={account}/>
-                <BusinessAvailability type={account}/>
-            </div>
-        </>
-    )
+            </>
+        )
+    }
 }

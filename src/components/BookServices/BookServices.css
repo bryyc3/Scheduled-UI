@@ -1,0 +1,18 @@
+.book_service_btn{
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding:14px 20px;
+    border-radius: 25px;
+    background-color: rgb(81, 80, 80);
+    color: white;
+    font-family: "Quattrocento", serif;
+    font-size: 1.3em;
+}
+.book_service_link{
+    text-decoration: none;
+    color: white;
+    background-color: orange;
+    
+}

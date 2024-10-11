@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import ReactDom from 'react-dom';
 import './Form.css';
 
 export default function SetAvailability({onClose, displayed}){
+    const [slotDivision, setSlotDivision] = useState('');
     const availability = 
         [{id: 0, name: 'Monday', start_time: '9:00', end_time: '17:00', unavailable: false},
          {id: 1, name: 'Tuesday', start_time: '9:00', end_time: '17:00', unavailable: false},
@@ -39,8 +41,13 @@ export default function SetAvailability({onClose, displayed}){
         endTime.value = '';
     }//dont allow edits to be made to either time values if user is unavailable
 
+    function storeSlotDivision(e){
+        const slotDivInput = e.target.value;
+        setSlotDivision(slotDivInput);
+    }
     function handleSubmit(e){
-        const availabilityArray = availability;
+        const availabilityArray = {availability};
+        const slotDivisionData = {slotDivision};
         const submitAvailability = async () => {
             const availabilitySet= await fetch('http://localhost:8000/insert-availability',
                 {
@@ -49,9 +56,18 @@ export default function SetAvailability({onClose, displayed}){
                     body: JSON.stringify(availabilityArray),
                     credentials: 'include'
                 })
-            const response = (await availabilitySet.json());
         }
-        submitAvailability()
+        const submitSlotDivision = async () => {
+            const slotDivisionSet= await fetch('http://localhost:8000/insert-slot-division',
+                {
+                    method: 'PUT',
+                    headers: { 'Content-Type' : 'application/json' },
+                    body: JSON.stringify(slotDivisionData),
+                    credentials: 'include'
+                })
+        }
+        submitAvailability();
+        submitSlotDivision();
     }
 
     if (!displayed) return null;
@@ -93,6 +109,12 @@ export default function SetAvailability({onClose, displayed}){
                                 </div>
                             )
                         })}
+                        <div className="slot_division">
+                            <h1>Time Slot Divisions</h1>
+                            <h2>Enter how you want to divide your time slots</h2>
+                            <input type='number' className='slot_division_input' onBlur={storeSlotDivision}/>
+                            <h2>mins</h2>
+                        </div>
                          <button type='submit' className='submit_info'>Submit Schedule</button>
                     </div>
                 </form>
