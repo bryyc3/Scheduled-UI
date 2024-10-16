@@ -8,6 +8,7 @@ export default function RegistrationForm ({ displayed, accountType, onClose}) {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState(null);
     const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+    const [firstName, setFirstName] = useState('');
 
     const passwordLength = 8;
     
@@ -38,10 +39,14 @@ export default function RegistrationForm ({ displayed, accountType, onClose}) {
         };
     };//check if the confirmed password matches the password previously entered 
 
+    function storeName(e){
+        const nameInput = e.target.value;
+        setFirstName(nameInput);
+    }
 
     function handleSubmit(e){
         e.preventDefault();
-        const user = {email, password, accountType};
+        const user = {email, password, accountType, firstName};
         const createUser = async () => {
             const sentUserInfo = await fetch('http://localhost:8000/create-user',
                 {
@@ -86,6 +91,16 @@ export default function RegistrationForm ({ displayed, accountType, onClose}) {
                             <span className='material-symbols-outlined error_icon'>error</span>
                             <span className='error_message'>{ emailError }</span>
                         </div>}
+                        <br />
+
+                        <label htmlFor='email'>First Name</label><br />
+                        <input 
+                            type='text'
+                            placeholder='Enter Your First Name'
+                            name='name'
+                            className='form_input'
+                            onBlur={ storeName }
+                            required/>
                         <br />
 
                         <label htmlFor='password'>Password</label><br />

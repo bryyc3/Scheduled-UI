@@ -21,6 +21,6 @@
 @media(max-width: 970px){
     .info_container{
         width:auto;
-        height: 200px;
+        height: fit-content;
     }
 }

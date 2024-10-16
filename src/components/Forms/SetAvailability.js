@@ -4,29 +4,35 @@ import './Form.css';
 
 export default function SetAvailability({onClose, displayed}){
     const [slotDivision, setSlotDivision] = useState('');
-    const availability = 
-        [{id: 0, name: 'Monday', start_time: '9:00', end_time: '17:00', unavailable: false},
-         {id: 1, name: 'Tuesday', start_time: '9:00', end_time: '17:00', unavailable: false},
-         {id: 2, name: 'Wednesday', start_time: '9:00', end_time: '17:00', unavailable: false},
-         {id: 3, name: 'Thursday', start_time: '9:00', end_time: '17:00', unavailable: false},
-         {id: 4, name: 'Friday', start_time: '9:00', end_time: '17:00', unavailable: false},
-         {id: 5, name: 'Saturday', start_time: '9:00', end_time: '17:00', unavailable: false},
-         {id: 6, name: 'Sunday', start_time: '9:00', end_time: '17:00', unavailable: false}];
+    const [availability, SetAvailability] = useState(
+        [{id: 1, name: 'Mon', start_time: '9:00', end_time: '17:00', unavailable: false},
+         {id: 2, name: 'Tue', start_time: '9:00', end_time: '17:00', unavailable: false},
+         {id: 3, name: 'Wed', start_time: '9:00', end_time: '17:00', unavailable: false},
+         {id: 4, name: 'Thu', start_time: '9:00', end_time: '17:00', unavailable: false},
+         {id: 5, name: 'Fri', start_time: '9:00', end_time: '17:00', unavailable: false},
+         {id: 6, name: 'Saturday', start_time: '9:00', end_time: '17:00', unavailable: false},
+         {id: 0, name: 'Sunday', start_time: '9:00', end_time: '17:00', unavailable: false}]);
 
     function changeStartTime(e, index){
-        const startVal = e.target.value
-        availability[index].start_time = startVal
+        const startVal = e.target.value;
+        let availabilityArr = [...availability];
+        availabilityArr[index].start_time = startVal;
+        SetAvailability(availabilityArr);
     }
     function changeEndTime(e, index){
         const endVal = e.target.value;
-        availability[index].end_time = endVal;
+        let availabilityArr = [...availability];
+        availabilityArr[index].end_time = endVal;
+        SetAvailability(availabilityArr);
+        
     }
     function toggleAvailability(index){
-        availability[index].start_time = '';
-        availability[index].end_time = '';
-        const unavailable = !availability[index].unavailable;
-        availability[index].unavailable = unavailable;
-        console.log(availability);
+        let availabilityArr = [...availability];
+        availabilityArr[index].start_time = '';
+        availabilityArr[index].end_time = '';
+        const unavailable = !availabilityArr[index].unavailable;
+        availabilityArr[index].unavailable = unavailable;
+        SetAvailability(availabilityArr);
         allowTimeEdits(index);
     }//when user toggles unavailability clear time values and change unavailability value 
     function allowTimeEdits(index){
@@ -45,24 +51,22 @@ export default function SetAvailability({onClose, displayed}){
         const slotDivInput = e.target.value;
         setSlotDivision(slotDivInput);
     }
-    function handleSubmit(e){
-        const availabilityArray = {availability};
-        const slotDivisionData = {slotDivision};
+    function handleSubmit(){
         const submitAvailability = async () => {
             const availabilitySet= await fetch('http://localhost:8000/insert-availability',
                 {
                     method: 'POST',
                     headers: { 'Content-Type' : 'application/json' },
-                    body: JSON.stringify(availabilityArray),
+                    body: JSON.stringify(availability),
                     credentials: 'include'
                 })
         }
-        const submitSlotDivision = async () => {
+        const submitSlotDivision = async (e) => {
             const slotDivisionSet= await fetch('http://localhost:8000/insert-slot-division',
                 {
                     method: 'PUT',
                     headers: { 'Content-Type' : 'application/json' },
-                    body: JSON.stringify(slotDivisionData),
+                    body: JSON.stringify({slotDivision}),
                     credentials: 'include'
                 })
         }

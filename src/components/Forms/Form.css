@@ -170,6 +170,38 @@ label{
     font-family: "Quattrocento", serif;
 }
 
+.appointment_info_header{
+    font-family: "League Gothic", sans-serif;
+    color:  rgb(81, 80, 80);
+    font-size: 3em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.appointment_info_cont{
+    width: fit-content;
+    margin: auto;
+}
+.appointment_item_container{
+    display: flex;
+    margin-bottom: 10px;
+   
+}
+.appointment_desc_name{
+    font-family: "Quattrocento", serif;
+    font-weight: 700;
+    font-size: 1.8em;
+    color: rgb(81, 80, 80);
+    text-align: left;
+}
+.appointment_info_description{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5px;
+    font-size: 1.5em;
+    font-family: "Quattrocento", serif;
+    font-weight: 500;
+}
+
 @media(max-width: 970px){
 .service_container{
         display: block;

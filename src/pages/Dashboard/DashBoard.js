@@ -30,7 +30,7 @@ export default function Dashboard(){
         return(
             <>
                 <Navbar account = {accountType}/>
-                <div className='content_background'>
+                <div className='content_background appointments'>
                     <Appointments dashboard = {accountType} />
                 </div>
                 <div className='content_background'>

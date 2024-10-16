@@ -6,7 +6,7 @@ import EditAvailability from "../EditAvailability/EditAvailability";
 
 import './BusinessDashboard.css';
 
-export default function BusinessDashboard({account, name}){
+export default function BusinessDashboard({account, business}){
     const [businessData, setBusinessData] = useState({});
     const [displayForm, setDisplayForm] = useState(false);
     function toggleForm() {
@@ -23,29 +23,13 @@ export default function BusinessDashboard({account, name}){
         setBusinessData(businessInfo);
    }//scheduler specific fetch for business info
 
-   const getBookerBusinessData = async () =>{
-        const businessResponse = await fetch("http://localhost:8000/business-information",
-            {
-                method: 'POST',
-                headers: { 'Content-Type' : 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({userSearch: name})
-            }
-        )
-        const [businessInfo] = (await businessResponse.json());
-        setBusinessData(businessInfo);
-   }//booker specific fetch for a scheduler's business info
-
     useEffect(() =>{
-        if(account === 'booker'){
-            getBookerBusinessData(); 
-        }
         if(account === 'scheduler'){
             getSchedulerBusinessData();
         }
     },[])
     if(account === 'scheduler'){
-        if(businessData.length === 0 && account === 'scheduler'){
+        if(businessData == null && account === 'scheduler'){
             return(
                 <>
                     <button className='setup_button' onClick={ toggleForm }>Set Up Your Business</button>
@@ -85,7 +69,7 @@ export default function BusinessDashboard({account, name}){
                         <p className='business_desc'>{businessData.description}</p>
                     </div>
                     <hr />
-                    <BookServices scheduler={name} />
+                    <BookServices schedulerBusiness={business} />
                 </div>
             </>
         )

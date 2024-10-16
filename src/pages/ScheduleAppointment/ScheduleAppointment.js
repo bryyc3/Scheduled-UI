@@ -1,24 +1,36 @@
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Calendar from "react-calendar";
+import AppointmentCalendar from "../../components/AppointmentCalendar/AppointmentCalendar";
 import './ScheduleAppointment.css';
 
 export default function ScheduleAppointment(){
     const location = useLocation();
-    const serviceObj = location.state;
+    const serviceObj = location.state.serviceListing;
+    const businessObj = location.state.schedulerBusiness;
+    const timePerSlot = businessObj.divide_slots;
 
-    if(serviceObj == null){
-        return(
-            <h1>Sorry! Theres No Info To Schedule An Appointment. Return To Dashboard</h1>
+    const getLoginInfo = async () => {
+        const response = await fetch("http://localhost:8000/loginStatus",
+            {
+                method: 'GET',
+                credentials: 'include'
+            }
         )
-    }
-    return(
-        <div className="calendar_cont">
-            <Calendar 
-                minDate={new Date()}
-                minDetail="month"
-                prev2Label={null}
-                next2Label={null}
-            />
-        </div>
-    )
+        const loginInfo = (await response.json());
+        if(!loginInfo.logged_in){
+            window.location = `http://localhost:3000/`
+        }
+    }//Check for user login status
+
+    useEffect(() =>{
+        getLoginInfo();
+    },[])
+
+
+   return(
+        <AppointmentCalendar 
+            services={serviceObj}
+            divideSlots={timePerSlot}
+        />
+   )
 }

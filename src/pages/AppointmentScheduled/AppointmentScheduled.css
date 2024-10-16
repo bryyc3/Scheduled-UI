@@ -1,0 +1,35 @@
+.success_message_background{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.success_message_content{
+    background-color: rgb(237, 236, 236);
+    padding: 200px;
+    border-radius: 25px;
+}
+
+.appt_scheduled_msg{
+    font-family: "League Gothic", sans-serif;
+    color:  rgb(0, 0, 0);
+    font-size: 3em;
+}
+
+.return_to_dash{
+    font-family: "Cinzel", serif;
+    background-color: rgb(183, 147, 103);
+    color: white;
+    font-size: 1.8em;
+    border-radius: 25px;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 30px;
+}
+
+.return_to_dash_link{
+    margin: auto;
+}

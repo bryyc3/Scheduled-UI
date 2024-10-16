@@ -19,6 +19,7 @@ export default function ExploreBusinesses(){
    }
    function storeBusinessData(businessInfo){
         setBusinessObj(businessInfo);
+        console.log(businessInfo)
         toggleBusinessView();
    }
    function toggleBusinessView(){

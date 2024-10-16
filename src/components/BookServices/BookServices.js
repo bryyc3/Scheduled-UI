@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import ListServices from "../ListServices/ListServices";
 import './BookServices.css';
 
-export default function BookServices({scheduler}){
+export default function BookServices({schedulerBusiness}){
     const [servicesArray, setServicesArray] = useState([]);
 
     const getServices = async () => {
+        const scheduler = schedulerBusiness.owner;
         const response = await fetch("http://localhost:8000/business-services",
             {
                 method: 'POST',
@@ -31,8 +32,7 @@ export default function BookServices({scheduler}){
                     return(
                         <>
                             <ListServices service={serviceListing} key={index}/>
-                            <Link to='/schedule-appointment' className='book_service_link' state={serviceListing}><button className='book_service_btn'>Book Service</button></Link>
-                            <hr />
+                            <Link to='/schedule-appointment' className='book_service_link' state={{serviceListing, schedulerBusiness}}><button className='book_service_btn'>Book Service</button></Link>
                         </>
                     )
                 })

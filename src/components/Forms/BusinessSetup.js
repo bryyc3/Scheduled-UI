@@ -6,6 +6,7 @@ export default function BusinessSetup({onClose, displayed}){
     const [businessName, setBusinessName] = useState('');
     const [address, setAddress] = useState('');
     const [businessDescription, setBusinessDescription] = useState('');
+    const slotDivisions = 60;
   
     function storeBusinessName(e){
         const name = e.target.value;
@@ -21,7 +22,7 @@ export default function BusinessSetup({onClose, displayed}){
     }//set business details
 
     function handleSubmit(){
-        const business = {businessName, address, businessDescription};
+        const business = {businessName, address, businessDescription, slotDivisions};
         const createBusiness = async () => {
             const businessCreated = await fetch('http://localhost:8000/create-business',
                 {

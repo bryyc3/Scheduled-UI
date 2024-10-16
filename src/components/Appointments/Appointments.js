@@ -31,11 +31,11 @@ export default function Appointments({dashboard}){
                     return(
                         <AppointmentBlock 
                             key = {appointment.time}
-                            name = {appointment.client_name}
-                            contact = {appointment.client_email}
+                            name = {appointment.booker_name}
+                            contact = {appointment.booker_email}
                             service = {appointment.service}
                             date = {appointment.date}
-                            time = {appointment.time}
+                            time = {appointment.display_time}
                             business = {null}
                         />
                     )
@@ -48,12 +48,12 @@ export default function Appointments({dashboard}){
                     return(
                         <AppointmentBlock 
                             key = {appointment.time}
-                            name = {appointment.service_provider_name}
-                            contact = {appointment.service_provider_email}
+                            name = {appointment.scheduler_name}
+                            contact = {appointment.scheduler_email}
                             service = {appointment.service}
                             date = {appointment.date}
-                            time = {appointment.time}
-                            business = {appointment.business}
+                            time = {appointment.display_time}
+                            business = {appointment}
                         />
                     )
                 })
